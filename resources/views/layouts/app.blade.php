@@ -16,6 +16,17 @@
     @else
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
     @endguest
+    @if (env('APP_ENV')=='production')
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JE52CWX5HB"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-JE52CWX5HB');
+        </script>
+    @endif
 </head>
 
 <body>
