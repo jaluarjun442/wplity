@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://newslity.online/sitemap/sitemap_2_20240727_200316.xml
