@@ -85,7 +85,7 @@ class GenerateSitemap extends Command
         foreach ($posts as $post) {
             $postId = $post['post_id'];
             $postSlug = $post['slug'];
-            $url = '/' . $post->site_id . '/post/' . $postId . '/' . $postSlug;
+            $url = '/' . $post->site_id . '/posts/' . $postId . '/' . $postSlug;
             $urlObject = Url::create($url)->setPriority(0.6);
             $urls[] = $urlObject;
 
