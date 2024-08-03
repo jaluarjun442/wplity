@@ -3,20 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\Setting;
 use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
     public function index(Request $request)
     {
-        ini_set('max_execution_time', 0);
-        $sites = Site::where('status', 1)->get();
-        return view('posts.index', compact('sites'));
+        $setting = Setting::first();
+        if ($setting['site_type'] == 'multi_site') {
+            ini_set('max_execution_time', 0);
+            $sites = Site::where('status', 1)->get();
+            return view('posts.index', compact('sites'));
+        }
+        if ($setting['site_type'] == 'single_site') {
+            $site_id = $setting['default_site_id'];
+            $default_site_data = Site::where('id', $site_id)->first();
+            return $this->site_index($site_id, Str::slug($default_site_data['name']), 1, 'single_site');
+        }
     }
-    public function site_index($site_id, $site_slug, $page = 1)
+    public function site_index($site_id, $site_slug, $page = 1, $site_type = 'multi_site')
     {
         ini_set('max_execution_time', 0);
         $perPage = 10;
@@ -28,10 +38,18 @@ class PostController extends Controller
         }
         $posts = $response->json();
         $total = $response->header('X-WP-Total');
-        $paginator = new LengthAwarePaginator($posts, $total, $perPage, $page, [
-            'path' => route('posts.site_index', ['site_id' => $site_id, 'site_slug' => $site_slug]),
-            'pageName' => 'page',
-        ]);
+        if ($site_type == 'single_site') {
+            $paginator = new LengthAwarePaginator($posts, $total, $perPage, $page, [
+                'path' => route('posts.home', ['site_id' => $site_id, 'site_slug' => $site_slug]),
+                'pageName' => 'page',
+            ]);
+        } 
+        if ($site_type == 'multi_site') {
+            $paginator = new LengthAwarePaginator($posts, $total, $perPage, $page, [
+                'path' => route('posts.site_index', ['site_id' => $site_id, 'site_slug' => $site_slug]),
+                'pageName' => 'page',
+            ]);
+        }
         return view('posts.site_index', compact('paginator', 'site_id', 'site_slug'));
     }
 

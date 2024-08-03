@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('sites', SiteController::class);
     Route::get('/sites/fetch/{id}', [App\Http\Controllers\SiteController::class, 'fetch'])->name('sites.fetch');
     Route::post('/sites/fetch_data', [App\Http\Controllers\SiteController::class, 'fetch_data'])->name('sites.fetch_data');
+    Route::get('/setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
+    Route::post('/setting/update', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
 });
 Route::get('/', [PostController::class, 'index'])->name('posts.home');
 // Route::get('/{site_id}/{site_slug}', [PostController::class, 'site_index'])->name('posts.site_index');
