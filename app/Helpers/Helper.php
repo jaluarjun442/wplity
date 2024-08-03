@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helpers;
+use App\Models\Setting;
 
 class Helper
 {
@@ -31215,5 +31216,13 @@ class Helper
         $originalUrl = $site_url . '/wp-content/uploads/';
         $localUrl = url('/') . '/' . $site_id . '/uploads/';
         return str_replace($originalUrl, $localUrl, $content);
+    }
+    public static function setting(){
+        $setting = Setting::first();
+        if($setting){
+            return $setting;
+        }else{
+            return [];
+        }
     }
 }

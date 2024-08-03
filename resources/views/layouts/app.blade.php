@@ -1,3 +1,6 @@
+@php
+use App\Helpers\Helper;
+@endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -27,6 +30,10 @@
         gtag('config', 'G-JE52CWX5HB');
     </script>
     @endif
+    @if(Helper::setting())
+    {!! Helper::setting()['header_script']; !!}
+    {!! Helper::setting()['header_style']; !!}
+    @endif
 </head>
 
 <body>
@@ -34,9 +41,13 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Home') }}
+                    @if(Helper::setting())
+                    <?php echo "<img src='" . asset('uploads/site') . '/' . Helper::setting()['site_logo'] . "' style='width:120px; height:auto;' />"; ?>
+                    @else
+                    Home
+                    @endif
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -89,6 +100,9 @@
     @else
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
     @endguest
+    @if(Helper::setting())
+    {!! Helper::setting()['footer_script']; !!}
+    @endif
     @yield('page_scripts')
 </body>
 
