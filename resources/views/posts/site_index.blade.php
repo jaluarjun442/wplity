@@ -29,10 +29,10 @@ use App\Helpers\Helper;
                     @php
                     $div_col='12';
                     @endphp
-                    @if($post['_embedded'] &&
-                    $post['_embedded']['wp:featuredmedia'] &&
-                    $post['_embedded']['wp:featuredmedia'][0] &&
-                    $post['_embedded']['wp:featuredmedia'][0]['source_url'])
+                    @if(isset($post['_embedded']) &&
+                    isset($post['_embedded']['wp:featuredmedia']) &&
+                    isset($post['_embedded']['wp:featuredmedia'][0]) &&
+                    isset($post['_embedded']['wp:featuredmedia'][0]['source_url']))
                     <div class="col-md-4">
                         <a href="{{ route('posts.show', ['site_id' => $site_id, 'id' => $post['id'], 'slug' => $post['slug']]) }}">
                             <img src="{{Helper::replaceImageUrls($post['_embedded']['wp:featuredmedia'][0]['source_url'],$site_id,$site_url)}}" class="img-thumbnail" style="width: 100%; height: auto;" alt="{{ $post['title']['rendered'] }}">
