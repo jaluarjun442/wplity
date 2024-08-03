@@ -34,12 +34,10 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('/', [PostController::class, 'index'])->name('posts.home');
 // Route::get('/{site_id}/{site_slug}', [PostController::class, 'site_index'])->name('posts.site_index');
-Route::get('/{site_id}/{site_slug}/{page?}', [PostController::class, 'site_index'])->name('posts.site_index');
-
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/{site_id}/posts/{id}/{slug}', [PostController::class, 'show'])
-    ->where(['id' => '[0-9]+', 'slug' => '[^/]+'])
-    ->name('posts.show');
+Route::get('/{site_id}/posts/{id}/{slug?}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/view/{site_id}/{site_slug}/{page?}', [PostController::class, 'site_index'])->name('posts.site_index');
+
 
 Route::get('/{site_id}/uploads/{year}/{month}/{filename}', function ($site_id, $year, $month, $filename) {
     $site = Site::where('id', $site_id)->first();

@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $setting = Setting::first();
         if ($setting['site_type'] == 'multi_site') {
@@ -36,7 +36,10 @@ class PostController extends Controller
         $apiUrl = $site->url . "/wp-json/wp/v2/posts?orderby=id&order=desc&per_page={$perPage}&page={$page}&_embed";
         $response = Http::get($apiUrl);
         if ($response->failed()) {
-            abort(500, 'Error fetching posts from the API.');
+            return $this->index();
+        }
+        if ($response->json() == null) {
+            return $this->index();
         }
         $posts = $response->json();
         $total = $response->header('X-WP-Total');
@@ -45,29 +48,41 @@ class PostController extends Controller
                 'path' => route('posts.home', ['site_id' => $site_id, 'site_slug' => $site_slug]),
                 'pageName' => 'page',
             ]);
-        } 
+        }
         if ($site_type == 'multi_site') {
             $paginator = new LengthAwarePaginator($posts, $total, $perPage, $page, [
                 'path' => route('posts.site_index', ['site_id' => $site_id, 'site_slug' => $site_slug]),
                 'pageName' => 'page',
             ]);
         }
-        return view('posts.site_index', compact('paginator', 'site_id', 'site_slug','site_url','thumbnail_display'));
+        return view('posts.site_index', compact('paginator', 'site_id', 'site_slug', 'site_url', 'thumbnail_display'));
     }
 
-    public function show($site_id, $id, $slug)
+    public function show($site_id, $id = "", $slug = "")
     {
         ini_set('max_execution_time', 0);
         $site = Site::where('id', $site_id)->first();
         $site_url = $site->url;
-        $apiUrl = $site_url . "/wp-json/wp/v2/posts/{$id}";
+        if ($slug == "") {
+            $apiUrl = $site_url . "/wp-json/wp/v2/posts?slug=" . $id;
+        } else {
+            $apiUrl = $site_url . "/wp-json/wp/v2/posts/{$id}";
+        }
         $response = Http::get($apiUrl);
         if ($response->failed()) {
             $post = [];
             return view('posts.show', compact('post'));
         }
-        $post = $response->json();
+        if ($response->json() == null) {
+            return $this->index();
+        }
+        if ($slug == "") {
+            $post = $response->json()[0];
+        } else {
+            $post = $response->json();
+        }
         $post['content']['rendered'] = $this->replaceImageUrls($post['content']['rendered'], $site_id, $site_url);
+        $post['content']['rendered'] = $this->replaceSiteUrls($post['content']['rendered'], $site_id, $site_url);
         $post['content']['rendered'] = $this->rewrite($post['content']['rendered']);
         return view('posts.show', compact('post'));
     }
@@ -97,6 +112,12 @@ class PostController extends Controller
     {
         $originalUrl = $site_url . '/wp-content/uploads/';
         $localUrl = url('/') . '/' . $site_id . '/uploads/';
+        return str_replace($originalUrl, $localUrl, $content);
+    }
+    private function replaceSiteUrls($content, $site_id, $site_url)
+    {
+        $originalUrl = $site_url;
+        $localUrl = url('/') . '/' . $site_id . '/posts';
         return str_replace($originalUrl, $localUrl, $content);
     }
 }

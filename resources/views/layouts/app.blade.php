@@ -25,7 +25,10 @@ use App\Helpers\Helper;
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JE52CWX5HB"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'G-JE52CWX5HB');
@@ -41,13 +44,11 @@ use App\Helpers\Helper;
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                @if(Helper::setting())
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    @if(Helper::setting())
                     <?php echo "<img src='" . asset('uploads/site') . '/' . Helper::setting()['site_logo'] . "' style='width:120px; height:auto;' />"; ?>
-                    @else
-                    Home
-                    @endif
                 </a>
+                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -64,6 +65,11 @@ use App\Helpers\Helper;
                         @guest
 
                         @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">
+                                Home
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('sites.index') }}">
                                 Sites
@@ -93,6 +99,12 @@ use App\Helpers\Helper;
         <main class="py-4">
             @yield('content')
         </main>
+        <footer class="bg-dark text-white text-center py-3">
+            <div class="container">
+                <p class="mb-0">&copy; <?php echo date('Y') . ' ';
+                                        echo env('APP_NAME'); ?>. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>

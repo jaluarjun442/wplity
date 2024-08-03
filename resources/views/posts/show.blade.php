@@ -18,9 +18,11 @@
 @section('content')
 <div class="container">
     <h1>{!! $post['title']['rendered'] !!}</h1>
+    <br />
+    <hr />
     <div>
         {!! $post['content']['rendered'] !!}
     </div>
-    <a href="{{ route('posts.index') }}" class="btn btn-secondary">Home</a>
+    <a href="{{ route('posts.index') }}" class="btn btn-primary">Back To Home</a>
 </div>
 @endsection
