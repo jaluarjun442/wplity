@@ -75,6 +75,7 @@ class SiteController extends Controller
             'total_post' => '0',
             'url' => $request->url,
             'status' => $request->status,
+            'thumbnail_display' => $request->thumbnail_display,
             'image' => $image,
         ]);
         return redirect()->route('sites.index')->with('success', 'site created successfully.');
@@ -200,6 +201,7 @@ class SiteController extends Controller
         $site->total_post = $request->total_post;
         $site->url = $request->url;
         $site->status = $request->status;
+        $site->thumbnail_display = $request->thumbnail_display;
         $site->save();
 
         return redirect()->route('sites.index')->with('success', 'site updated successfully.');

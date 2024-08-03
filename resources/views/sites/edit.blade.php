@@ -63,6 +63,18 @@
                                 </span>
                                 @enderror
                             </div>
+                            <div class="form-group col-md-4">
+                                <label for="thumbnail_display">Thumbnail Display</label>
+                                <select name="thumbnail_display" id="thumbnail_display" class="form-control @error('thumbnail_display') is-invalid @enderror">
+                                    <option value="true" {{ $site->thumbnail_display == 'true' ? 'selected' : '' }}>True</option>
+                                    <option value="false" {{ $site->thumbnail_display == 'false' ? 'selected' : '' }}>False</option>
+                                </select>
+                                @error('thumbnail_display')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
 
                             <div class="form-group col-md-4">
                                 <label for="image">Image</label>

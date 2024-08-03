@@ -32,6 +32,7 @@ class PostController extends Controller
         $perPage = 10;
         $site = Site::where('id', $site_id)->first();
         $site_url = $site->url;
+        $thumbnail_display = $site->thumbnail_display;
         $apiUrl = $site->url . "/wp-json/wp/v2/posts?orderby=id&order=desc&per_page={$perPage}&page={$page}&_embed";
         $response = Http::get($apiUrl);
         if ($response->failed()) {
@@ -51,7 +52,7 @@ class PostController extends Controller
                 'pageName' => 'page',
             ]);
         }
-        return view('posts.site_index', compact('paginator', 'site_id', 'site_slug','site_url'));
+        return view('posts.site_index', compact('paginator', 'site_id', 'site_slug','site_url','thumbnail_display'));
     }
 
     public function show($site_id, $id, $slug)

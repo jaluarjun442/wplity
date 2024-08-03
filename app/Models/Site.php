@@ -18,6 +18,7 @@ class Site extends Model
         'url',
         'status',
         'image',
-        'last_updated_fetch'
+        'last_updated_fetch',
+        'thumbnail_display'
     ];
 }

@@ -29,7 +29,8 @@ use App\Helpers\Helper;
                     @php
                     $div_col='12';
                     @endphp
-                    @if(isset($post['_embedded']) &&
+                    @if($thumbnail_display == 'true' &&
+                    isset($post['_embedded']) &&
                     isset($post['_embedded']['wp:featuredmedia']) &&
                     isset($post['_embedded']['wp:featuredmedia'][0]) &&
                     isset($post['_embedded']['wp:featuredmedia'][0]['source_url']))
