@@ -31210,5 +31210,10 @@ class Helper
         );
     }
 
-    // Add more helper functions as needed
+    public static function replaceImageUrls($content, $site_id, $site_url)
+    {
+        $originalUrl = $site_url . '/wp-content/uploads/';
+        $localUrl = url('/') . '/' . $site_id . '/uploads/';
+        return str_replace($originalUrl, $localUrl, $content);
+    }
 }

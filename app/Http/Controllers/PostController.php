@@ -31,7 +31,8 @@ class PostController extends Controller
         ini_set('max_execution_time', 0);
         $perPage = 10;
         $site = Site::where('id', $site_id)->first();
-        $apiUrl = $site->url . "/wp-json/wp/v2/posts?orderby=id&order=desc&per_page={$perPage}&page={$page}";
+        $site_url = $site->url;
+        $apiUrl = $site->url . "/wp-json/wp/v2/posts?orderby=id&order=desc&per_page={$perPage}&page={$page}&_embed";
         $response = Http::get($apiUrl);
         if ($response->failed()) {
             abort(500, 'Error fetching posts from the API.');
@@ -50,7 +51,7 @@ class PostController extends Controller
                 'pageName' => 'page',
             ]);
         }
-        return view('posts.site_index', compact('paginator', 'site_id', 'site_slug'));
+        return view('posts.site_index', compact('paginator', 'site_id', 'site_slug','site_url'));
     }
 
     public function show($site_id, $id, $slug)
