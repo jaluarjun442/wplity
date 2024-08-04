@@ -19,6 +19,7 @@ class Setting extends Model
         'header_script',
         'footer_script',
         'header_style',
+        'ads',
         'status'
     ];
 }

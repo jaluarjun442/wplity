@@ -22,10 +22,7 @@ use App\Helpers\Helper;
     <link href="{{ asset('asset/css/jquery.dataTables.css') }}" rel="stylesheet">
     @endguest
 
-    @if(Helper::setting())
-    {!! Helper::setting()['header_script']; !!}
-    {!! Helper::setting()['header_style']; !!}
-    @endif
+
 </head>
 
 <body>
@@ -55,28 +52,33 @@ use App\Helpers\Helper;
                             </a>
                         </li>
                         <!-- Authentication Links -->
-
-                        @if(Helper::setting() &&
-                        Helper::setting()['site_type'] == 'single_site' &&
-                        Helper::setting()['default_site_id']!= '' &&
-                        Helper::get_categories(Helper::setting()['default_site_id']) != null)
-                        @foreach(Helper::get_categories(Helper::setting()['default_site_id']) as $key => $cat_item)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('category.show', ['site_id' => Helper::setting()['default_site_id'], 'id' => $cat_item->id, 'slug' => $cat_item->slug]) }}">
-                                {{ $cat_item->name; }}
+                            <a class="nav-link" href="{{ route('sites.index') }}">
+                                Sites
                             </a>
                         </li>
-                        @endforeach
-                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('setting.index') }}">
+                                Setting
+                            </a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        {!! Helper::setting()['ads'] !!}
         <main class="py-4">
             @yield('content')
         </main>
-        {!! Helper::setting()['ads'] !!}
         <footer class="bg-dark text-white text-center py-3">
             <div class="container">
                 <p class="mb-0">&copy; <?php echo date('Y') . ' '; ?>
@@ -92,9 +94,7 @@ use App\Helpers\Helper;
     @else
     <script src="{{ asset('asset/js/jquery.dataTables.js') }}"></script>
     @endguest
-    @if(Helper::setting())
-    {!! Helper::setting()['footer_script']; !!}
-    @endif
+
     @yield('page_scripts')
 </body>
 

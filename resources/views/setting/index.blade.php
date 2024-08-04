@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -109,6 +109,15 @@
                             <label for="header_style">Header Style</label>
                             <textarea name="header_style" id="header_style" class="form-control @error('header_style') is-invalid @enderror" rows="4">{{ old('header_style', $setting->header_style) }}</textarea>
                             @error('header_style')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="ads">Ads HTML</label>
+                            <textarea name="ads" id="ads" class="form-control @error('ads') is-invalid @enderror" rows="4">{{ old('ads', $setting->ads) }}</textarea>
+                            @error('ads')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

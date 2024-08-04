@@ -42,6 +42,7 @@ class SettingController extends Controller
         $site->header_script = $request->header_script ?? '';
         $site->footer_script = $request->footer_script ?? '';
         $site->header_style = $request->header_style ?? '';
+        $site->ads = $request->ads ?? '';
         $site->status = $request->status ?? '';
         $site->save();
 
