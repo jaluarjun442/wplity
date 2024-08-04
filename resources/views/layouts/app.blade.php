@@ -139,7 +139,7 @@ use App\Helpers\Helper;
         <footer class="bg-dark text-white text-center py-3">
             <div class="container">
                 <p class="mb-0">&copy; <?php echo date('Y') . ' '; ?>
-                    {{ env('APP_NAME')}}. All rights reserved.
+                    {{ Helper::setting()['site_name'] }}. All rights reserved.
                 </p>
             </div>
         </footer>
