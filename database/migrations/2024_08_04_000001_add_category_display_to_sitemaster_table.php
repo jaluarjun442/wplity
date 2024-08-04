@@ -14,7 +14,7 @@ class AddCategoryDisplayToSiteMasterTable extends Migration
     public function up()
     {
         Schema::table('site_master', function (Blueprint $table) {
-            $table->text('category')->nullable();
+            $table->longText('category')->nullable();
             $table->string('category_display')->default('false')->nullable();
         });
     }
