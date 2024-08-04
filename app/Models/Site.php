@@ -19,6 +19,8 @@ class Site extends Model
         'status',
         'image',
         'last_updated_fetch',
-        'thumbnail_display'
+        'thumbnail_display',
+        'category',
+        'category_display'
     ];
 }

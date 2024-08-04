@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 use App\Models\Setting;
+use App\Models\Site;
 
 class Helper
 {
@@ -31224,5 +31225,39 @@ class Helper
         }else{
             return [];
         }
+    }
+    public static function get_categories($site_id){
+        $site = Site::where('id', $site_id)->first();
+        if($site['category']!=null && count(json_decode($site['category'])) > 0){
+            return json_decode($site['category']);
+        }else{
+            return null;
+        }
+    }
+    public static function store_categories($site_id)
+    {
+        $site = Site::where('id', $site_id)->first();
+        $site_url = $site->url;
+        $url = $site_url . '/wp-json/wp/v2/categories?per_page=100';
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HEADER => false, 
+        ));
+        $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            curl_close($curl);
+            return response()->json([], 200);
+        }
+        curl_close($curl);
+        $categories = json_decode($response, true);
+        return $categories;
     }
 }

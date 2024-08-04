@@ -61,15 +61,27 @@ use App\Helpers\Helper;
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-
-                        @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">
                                 Home
                             </a>
                         </li>
+                        <!-- Authentication Links -->
+                        @guest
+                        @if(Helper::setting() &&
+                        Helper::setting()['site_type'] == 'single_site' &&
+                        Helper::setting()['default_site_id']!= '' &&
+                        Helper::get_categories(Helper::setting()['default_site_id']) != null)
+                        @foreach(Helper::get_categories(Helper::setting()['default_site_id']) as $key => $cat_item)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('category.show', ['site_id' => Helper::setting()['default_site_id'], 'id' => $cat_item->id, 'slug' => $cat_item->slug]) }}">
+                                {{ $cat_item->name; }}
+                            </a>
+                        </li>
+                        @endforeach
+                        @endif
+                        @else
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('sites.index') }}">
                                 Sites

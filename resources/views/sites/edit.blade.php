@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label for="last_id">Last id</label>
                                 <input type="text" name="last_id" id="last_id" class="form-control @error('last_id') is-invalid @enderror" value="{{ old('url', $site->last_id) }}">
                                 @error('last_id')
@@ -51,7 +51,7 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label for="status">Status</label>
                                 <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
                                     <option value="1" {{ $site->status == 1 ? 'selected' : '' }}>Active</option>
@@ -63,13 +63,25 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label for="thumbnail_display">Thumbnail Display</label>
                                 <select name="thumbnail_display" id="thumbnail_display" class="form-control @error('thumbnail_display') is-invalid @enderror">
                                     <option value="true" {{ $site->thumbnail_display == 'true' ? 'selected' : '' }}>True</option>
                                     <option value="false" {{ $site->thumbnail_display == 'false' ? 'selected' : '' }}>False</option>
                                 </select>
                                 @error('thumbnail_display')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="category_display">Category Display</label>
+                                <select name="category_display" id="category_display" class="form-control @error('category_display') is-invalid @enderror">
+                                    <option value="true" {{ $site->category_display == 'true' ? 'selected' : '' }}>True</option>
+                                    <option value="false" {{ $site->category_display == 'false' ? 'selected' : '' }}>False</option>
+                                </select>
+                                @error('category_display')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

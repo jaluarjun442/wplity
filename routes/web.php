@@ -37,6 +37,7 @@ Route::get('/', [PostController::class, 'index'])->name('posts.home');
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/{site_id}/posts/{id}/{slug?}', [PostController::class, 'show'])->name('posts.show');
 Route::get('/view/{site_id}/{site_slug}/{page?}', [PostController::class, 'site_index'])->name('posts.site_index');
+Route::get('/category/{site_id}/{id}/{slug?}/{page?}', [PostController::class, 'category_show'])->name('category.show');
 
 
 Route::get('/{site_id}/uploads/{year}/{month}/{filename}', function ($site_id, $year, $month, $filename) {

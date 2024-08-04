@@ -58,6 +58,30 @@ class PostController extends Controller
         return view('posts.site_index', compact('paginator', 'site_id', 'site_slug', 'site_url', 'thumbnail_display'));
     }
 
+    public function category_show($site_id, $category_id, $site_slug, $page = 1)
+    {
+        ini_set('max_execution_time', 0);
+        $perPage = 10;
+        $site = Site::where('id', $site_id)->first();
+        $site_url = $site->url;
+        $thumbnail_display = $site->thumbnail_display;
+        $apiUrl = $site->url . "/wp-json/wp/v2/posts?categories=" . $category_id . "&orderby=id&order=desc&per_page={$perPage}&page={$page}&_embed";
+        $response = Http::get($apiUrl);
+        if ($response->failed()) {
+            return $this->index();
+        }
+        if ($response->json() == null) {
+            return $this->index();
+        }
+        $posts = $response->json();
+        $total = $response->header('X-WP-Total');
+
+        $paginator = new LengthAwarePaginator($posts, $total, $perPage, $page, [
+            'path' => route('category.show', ['site_id' => $site_id, 'id' => $category_id, 'site_slug' => $site_slug]),
+            'pageName' => 'page',
+        ]);
+        return view('posts.category_index', compact('paginator', 'site_id', 'category_id', 'site_slug', 'site_url', 'thumbnail_display'));
+    }
     public function show($site_id, $id = "", $slug = "")
     {
         ini_set('max_execution_time', 0);

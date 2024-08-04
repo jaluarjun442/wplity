@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Site;
@@ -76,8 +77,12 @@ class SiteController extends Controller
             'url' => $request->url,
             'status' => $request->status,
             'thumbnail_display' => $request->thumbnail_display,
+            'category_display' => $request->category_display,
             'image' => $image,
         ]);
+        $category_data = Helper::store_categories($site->id);
+        $site->category = json_encode($category_data);
+        $site->save();
         return redirect()->route('sites.index')->with('success', 'site created successfully.');
     }
 
@@ -194,6 +199,7 @@ class SiteController extends Controller
             $site->image = $image;
         }
 
+        $category_data = Helper::get_categories($id);
         $site->name = $request->name;
         $site->description = $request->description;
         $site->last_updated_fetch = $request->last_updated_fetch;
@@ -202,6 +208,8 @@ class SiteController extends Controller
         $site->url = $request->url;
         $site->status = $request->status;
         $site->thumbnail_display = $request->thumbnail_display;
+        $site->category_display = $request->category_display;
+        $site->category = json_encode($category_data);
         $site->save();
 
         return redirect()->route('sites.index')->with('success', 'site updated successfully.');
