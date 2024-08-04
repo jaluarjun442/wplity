@@ -199,7 +199,7 @@ class SiteController extends Controller
             $site->image = $image;
         }
 
-        $category_data = Helper::get_categories($id);
+        $category_data = Helper::store_categories($id);
         $site->name = $request->name;
         $site->description = $request->description;
         $site->last_updated_fetch = $request->last_updated_fetch;
