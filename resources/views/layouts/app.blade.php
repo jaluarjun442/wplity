@@ -20,7 +20,49 @@ use App\Helpers\Helper;
     @else
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
     @endguest
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+    <style>
+        /* Existing CSS */
+        .navbar-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            /* Optional: Center the nav items */
+        }
 
+        .nav-item {
+            flex: 1 0 auto;
+            text-align: center;
+            margin: 5px;
+            /* Space between items */
+            border: 1px solid #ccc;
+            /* Border around items */
+            padding: 0px;
+            /* Space inside the border */
+            border-radius: 5px;
+            /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: left;
+                padding-left: 5px;
+            }
+        }
+    </style>
     @if(Helper::setting())
     {!! Helper::setting()['header_script']; !!}
     {!! Helper::setting()['header_style']; !!}
@@ -100,8 +142,9 @@ use App\Helpers\Helper;
         </main>
         <footer class="bg-dark text-white text-center py-3">
             <div class="container">
-                <p class="mb-0">&copy; <?php echo date('Y') . ' ';
-                                        echo env('APP_NAME'); ?>. All rights reserved.</p>
+                <p class="mb-0">&copy; <?php echo date('Y') . ' '; ?>
+                    {{ env('APP_NAME')}}. All rights reserved.
+                </p>
             </div>
         </footer>
     </div>
