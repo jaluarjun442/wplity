@@ -61,13 +61,13 @@ use App\Helpers\Helper;
             <ul class="pagination">
                 <!-- Previous Button -->
                 @if ($paginator->onFirstPage())
-                <li class="page-item disabled">
+                <!-- <li class="page-item disabled">
                     <span class="page-link">Previous</span>
-                </li>
+                </li> -->
                 @else
-                <li class="page-item">
+                <!-- <li class="page-item">
                     <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id, 'id' => $category_id,'slug' => $site_slug, 'page' => $paginator->currentPage() - 1]) }}" aria-label="Previous">Previous</a>
-                </li>
+                </li> -->
                 @endif
 
                 <!-- First Page Link -->
@@ -107,13 +107,13 @@ use App\Helpers\Helper;
 
                             <!-- Next Button -->
                             @if ($paginator->hasMorePages())
-                            <li class="page-item">
+                            <!-- <li class="page-item">
                                 <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id,'id' => $category_id, 'slug' => $site_slug, 'page' => $paginator->currentPage() + 1]) }}" aria-label="Next">Next</a>
-                            </li>
+                            </li> -->
                             @else
-                            <li class="page-item disabled">
+                            <!-- <li class="page-item disabled">
                                 <span class="page-link">Next</span>
-                            </li>
+                            </li> -->
                             @endif
             </ul>
         </nav>
