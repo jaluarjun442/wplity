@@ -2,6 +2,7 @@ img {
     max-width: 100%;
     height: auto;
 }
+
 /* Existing CSS */
 .navbar-nav {
     display: flex;
@@ -34,9 +35,22 @@ img {
     }
 }
 
+body,
+html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* Prevent the body from scrolling horizontally */
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    /* Ensure table fits within the width */
+    word-wrap: break-word;
+    /* Ensure content wraps within the cell */
 }
 
 table,
@@ -51,3 +65,11 @@ td {
     text-align: left;
 }
 
+table {
+    display: block;
+    /* Make table a block element to control its width */
+    overflow-x: auto;
+    /* Allow horizontal scrolling if needed */
+    white-space: nowrap;
+    /* Prevent table cells from wrapping */
+}
