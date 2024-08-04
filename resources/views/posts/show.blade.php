@@ -23,6 +23,6 @@
     <div>
         {!! $post['content']['rendered'] !!}
     </div>
-    <a href="{{ route('posts.index') }}" class="btn btn-primary">Back To Home</a>
+    <!-- <a href="{{ route('posts.index') }}" class="btn btn-primary">Back To Home</a> -->
 </div>
 @endsection

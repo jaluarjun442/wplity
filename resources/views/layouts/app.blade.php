@@ -13,52 +13,15 @@ use App\Helpers\Helper;
     @yield('description')
     @yield('schema')
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="{{ asset('asset/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     @guest
-
+    
     @else
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <link href="{{ asset('asset/css/jquery.dataTables.css') }}" rel="stylesheet">
     @endguest
-    <style>
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
-    <style>
-        /* Existing CSS */
-        .navbar-nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            /* Optional: Center the nav items */
-        }
 
-        .nav-item {
-            flex: 1 0 auto;
-            text-align: center;
-            margin: 5px;
-            border: 1px solid #ccc;
-            padding: 0px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding-left: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .navbar-nav {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-item {
-                width: 100%;
-                text-align: left;
-                padding-left: 5px !important;
-            }
-        }
-    </style>
     @if(Helper::setting())
     {!! Helper::setting()['header_script']; !!}
     {!! Helper::setting()['header_style']; !!}
@@ -144,12 +107,12 @@ use App\Helpers\Helper;
             </div>
         </footer>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('asset/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('asset/js/bootstrap.bundle.min.js') }}"></script>
     @guest
-
+    
     @else
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <script src="{{ asset('asset/js/jquery.dataTables.js') }}"></script>
     @endguest
     @if(Helper::setting())
     {!! Helper::setting()['footer_script']; !!}
