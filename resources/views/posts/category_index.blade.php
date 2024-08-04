@@ -66,16 +66,16 @@ use App\Helpers\Helper;
                 </li> -->
                 @else
                 <!-- <li class="page-item">
-                    <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id, 'id' => $category_id,'slug' => $site_slug, 'page' => $paginator->currentPage() - 1]) }}" aria-label="Previous">Previous</a>
+                    <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id, 'id' => $category_id, 'slug' => $site_slug, 'page' => $paginator->currentPage() - 1]) }}" aria-label="Previous">Previous</a>
                 </li> -->
                 @endif
 
                 <!-- First Page Link -->
-                @if ($paginator->lastPage() > 1)
-                <li class="page-item {{ $paginator->currentPage() == 1 ? 'active' : '' }}">
-                    <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id,'id' => $category_id, 'slug' => $site_slug, 'page' => 1]) }}">1</a>
+                @if ($paginator->currentPage() > 2)
+                <li class="page-item">
+                    <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id, 'id' => $category_id, 'slug' => $site_slug, 'page' => 1]) }}">1</a>
                 </li>
-                @if ($paginator->currentPage() > 4)
+                @if ($paginator->currentPage() > 3)
                 <li class="page-item disabled">
                     <span class="page-link">...</span>
                 </li>
@@ -83,40 +83,47 @@ use App\Helpers\Helper;
                 @endif
 
                 <!-- Numbered Page Links -->
-                @php
-                $start = max($paginator->currentPage() - 3, 2); // Ensure at least 1 page is visible before current page
-                $end = min($paginator->currentPage() + 3, $paginator->lastPage() - 1); // Ensure at least 1 page is visible after current page
-                @endphp
+                @if ($paginator->currentPage() > 1)
+                <li class="page-item">
+                    <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id, 'id' => $category_id, 'slug' => $site_slug, 'page' => $paginator->currentPage() - 1]) }}">{{ $paginator->currentPage() - 1 }}</a>
+                </li>
+                @endif
 
-                @for ($page = $start; $page <= $end; $page++) <li class="page-item {{ $page == $paginator->currentPage() ? 'active' : '' }}">
-                    <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id,'id' => $category_id, 'slug' => $site_slug, 'page' => $page]) }}">{{ $page }}</a>
+                <li class="page-item active">
+                    <span class="page-link">{{ $paginator->currentPage() }}</span>
+                </li>
+
+                @if ($paginator->currentPage() < $paginator->lastPage())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id, 'id' => $category_id, 'slug' => $site_slug, 'page' => $paginator->currentPage() + 1]) }}">{{ $paginator->currentPage() + 1 }}</a>
                     </li>
-                    @endfor
+                    @endif
 
                     <!-- Last Page Link -->
-                    @if ($paginator->lastPage() > 1 && $paginator->currentPage() < $paginator->lastPage())
-                        @if ($paginator->currentPage() < $paginator->lastPage() - 3)
+                    @if ($paginator->currentPage() < $paginator->lastPage() - 1)
+                        @if ($paginator->currentPage() < $paginator->lastPage() - 2)
                             <li class="page-item disabled">
                                 <span class="page-link">...</span>
                             </li>
                             @endif
                             <li class="page-item">
-                                <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id,'id' => $category_id, 'slug' => $site_slug, 'page' => $paginator->lastPage()]) }}">{{ $paginator->lastPage() }}</a>
+                                <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id, 'id' => $category_id, 'slug' => $site_slug, 'page' => $paginator->lastPage()]) }}">{{ $paginator->lastPage() }}</a>
                             </li>
                             @endif
 
                             <!-- Next Button -->
                             @if ($paginator->hasMorePages())
                             <!-- <li class="page-item">
-                                <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id,'id' => $category_id, 'slug' => $site_slug, 'page' => $paginator->currentPage() + 1]) }}" aria-label="Next">Next</a>
-                            </li> -->
+            <a class="page-link" href="{{ route('category.show', ['site_id' => $site_id, 'id' => $category_id, 'slug' => $site_slug, 'page' => $paginator->currentPage() + 1]) }}" aria-label="Next">Next</a>
+        </li> -->
                             @else
                             <!-- <li class="page-item disabled">
-                                <span class="page-link">Next</span>
-                            </li> -->
+            <span class="page-link">Next</span>
+        </li> -->
                             @endif
             </ul>
         </nav>
+
     </div>
 </div>
 @endsection
