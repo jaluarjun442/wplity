@@ -39,15 +39,11 @@ use App\Helpers\Helper;
             flex: 1 0 auto;
             text-align: center;
             margin: 5px;
-            /* Space between items */
             border: 1px solid #ccc;
-            /* Border around items */
             padding: 0px;
-            /* Space inside the border */
             border-radius: 5px;
-            /* Rounded corners */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            /* Subtle shadow */
+            padding-left: 5px;
         }
 
         @media (max-width: 768px) {
@@ -59,7 +55,7 @@ use App\Helpers\Helper;
             .nav-item {
                 width: 100%;
                 text-align: left;
-                padding-left: 5px;
+                padding-left: 5px !important;
             }
         }
     </style>
@@ -75,7 +71,7 @@ use App\Helpers\Helper;
             <div class="container">
                 @if(Helper::setting())
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <?php echo "<img src='" . asset('uploads/site') . '/' . Helper::setting()['site_logo'] . "' style='width:120px; height:auto;' />"; ?>
+                    <?php echo "<img src='" . asset('uploads/site') . '/' . Helper::setting()['site_logo'] . "' style='height:auto;' />"; ?>
                 </a>
                 @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
