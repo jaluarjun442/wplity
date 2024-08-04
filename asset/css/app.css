@@ -2,7 +2,6 @@ img {
     max-width: 100%;
     height: auto;
 }
-
 /* Existing CSS */
 .navbar-nav {
     display: flex;
@@ -35,22 +34,9 @@ img {
     }
 }
 
-body,
-html {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    /* Prevent horizontal scrolling on the body */
-}
-
 table {
     border-collapse: collapse;
     width: 100%;
-    max-width: 100%;
-    table-layout: fixed;
-    /* Ensure the table fits within the width */
-    word-wrap: break-word;
-    /* Ensure content wraps within the cell */
 }
 
 table,
@@ -65,17 +51,3 @@ td {
     text-align: left;
 }
 
-@media screen and (max-width: 768px) {
-
-    /* Adjust for smaller screens */
-    table {
-        display: block;
-        /* Make the table scrollable on small screens */
-        overflow-x: auto;
-        /* Allow horizontal scrolling if needed */
-        white-space: nowrap;
-        /* Prevent table cells from wrapping */
-        border: none;
-        /* Remove border to prevent extra space */
-    }
-}
