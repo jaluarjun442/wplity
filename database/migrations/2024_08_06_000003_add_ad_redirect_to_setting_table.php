@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAdsToSettingTable extends Migration
+class AddAdRedirectToSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddAdsToSettingTable extends Migration
     public function up()
     {
         Schema::table('setting', function (Blueprint $table) {
-            $table->text('ads')->nullable();
+            $table->string('ad_redirect')->default('false')->nullable();
+            $table->string('ad_redirect_url')->nullable();
         });
     }
 
@@ -26,7 +27,8 @@ class AddAdsToSettingTable extends Migration
     public function down()
     {
         Schema::table('setting', function (Blueprint $table) {
-            $table->dropColumn('ads');
+            $table->dropColumn('ad_redirect');
+            $table->dropColumn('ad_redirect_url');
         });
     }
 }

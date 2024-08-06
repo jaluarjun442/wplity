@@ -15,6 +15,11 @@ class PostController extends Controller
     public function index()
     {
         $setting = Setting::first();
+        $is_redirect = $setting['ad_redirect'];
+        $redirect_url = $setting['ad_redirect_url'];
+        if ($is_redirect == 'true') {
+            return view('posts.redirect', compact('is_redirect', 'redirect_url'));
+        }
         if ($setting['site_type'] == 'multi_site') {
             ini_set('max_execution_time', 0);
             $sites = Site::where('status', 1)->get();
@@ -28,6 +33,12 @@ class PostController extends Controller
     }
     public function site_index($site_id, $site_slug, $page = 1, $site_type = 'multi_site')
     {
+        $setting = Setting::first();
+        $is_redirect = $setting['ad_redirect'];
+        $redirect_url = $setting['ad_redirect_url'];
+        if ($is_redirect == 'true') {
+            return view('posts.redirect', compact('is_redirect', 'redirect_url'));
+        }
         ini_set('max_execution_time', 0);
         $perPage = 10;
         $site = Site::where('id', $site_id)->first();

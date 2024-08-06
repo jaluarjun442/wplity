@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
             'header_script' => "",
             'footer_script' => "",
             'header_style' => "",
+            'ad_redirect' => "false",
+            'ad_redirect_url' => "",
+            'ads' => "",
             'status' => true
         ]);
         // default setting end

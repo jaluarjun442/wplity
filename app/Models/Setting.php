@@ -20,6 +20,8 @@ class Setting extends Model
         'footer_script',
         'header_style',
         'ads',
-        'status'
+        'status',
+        'ad_redirect',
+        'ad_redirect_url'
     ];
 }

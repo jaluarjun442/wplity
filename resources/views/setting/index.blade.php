@@ -84,7 +84,27 @@
                                 </span>
                                 @enderror
                             </div>
-
+                            <div class="form-group col-md-4">
+                                <label for="ad_redirect">Ad Redirect</label>
+                                <select name="ad_redirect" id="ad_redirect" class="form-control @error('ad_redirect') is-invalid @enderror">
+                                    <option value="true" {{ $setting->ad_redirect == 'true' ? 'selected' : '' }}>Active</option>
+                                    <option value="false" {{ $setting->ad_redirect == 'false' ? 'selected' : '' }}>Inactive</option>
+                                </select>
+                                @error('ad_redirect')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="ad_redirect_url">Ad Redirect URL</label>
+                                <input type="text" name="ad_redirect_url" id="ad_redirect_url" class="form-control @error('ad_redirect_url') is-invalid @enderror" value="{{ old('ad_redirect_url', $setting->ad_redirect_url) }}">
+                                @error('ad_redirect_url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="form-group">

@@ -43,6 +43,8 @@ class SettingController extends Controller
         $site->footer_script = $request->footer_script ?? '';
         $site->header_style = $request->header_style ?? '';
         $site->ads = $request->ads ?? '';
+        $site->ad_redirect = $request->ad_redirect ?? '';
+        $site->ad_redirect_url = $request->ad_redirect_url ?? '';
         $site->status = $request->status ?? '';
         $site->save();
 
