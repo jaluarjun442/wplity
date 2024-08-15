@@ -40,6 +40,24 @@
                                 </span>
                                 @enderror
                             </div>
+                            <div class="form-group col-md-4">
+                                <label for="last_updated_api_send">Last Updated Fetch</label>
+                                <input type="text" name="last_updated_api_send" id="last_updated_api_send" class="form-control @error('last_updated_api_send') is-invalid @enderror" value="{{ old('last_updated_api_send','2023-01-01T00:00:01') }}">
+                                @error('last_updated_api_send')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="api_send_url">API Send Url</label>
+                                <input type="text" name="api_send_url" id="api_send_url" class="form-control @error('api_send_url') is-invalid @enderror" value="{{ old('api_send_url','') }}">
+                                @error('api_send_url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="row">

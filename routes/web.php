@@ -31,6 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/sites/fetch_data', [App\Http\Controllers\SiteController::class, 'fetch_data'])->name('sites.fetch_data');
     Route::get('/setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
     Route::post('/setting/update', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
+
+    Route::get('/sites/api_send/{id}', [App\Http\Controllers\SiteController::class, 'api_send'])->name('sites.api_send');
+    Route::post('/sites/api_send_data', [App\Http\Controllers\SiteController::class, 'api_send_data'])->name('sites.api_send_data');
 });
 Route::get('/', [PostController::class, 'index'])->name('posts.home');
 // Route::get('/{site_id}/{site_slug}', [PostController::class, 'site_index'])->name('posts.site_index');
@@ -51,3 +54,6 @@ Route::get('/{site_id}/uploads/{year}/{month}/{filename}', function ($site_id, $
         'Content-Type' => $response->header('Content-Type'),
     ]);
 })->where(['year' => '[0-9]+', 'month' => '[0-9]+', 'filename' => '.*']);
+
+// wordpress start
+// admin P5NB ZnAu d4nO qkI0 0Da9 RYGF

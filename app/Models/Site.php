@@ -19,6 +19,8 @@ class Site extends Model
         'status',
         'image',
         'last_updated_fetch',
+        'last_updated_api_send',
+        'api_send_url',
         'thumbnail_display',
         'category',
         'category_display'
