@@ -72,14 +72,14 @@ use App\Helpers\Helper;
                 </div>
             </div>
         </nav>
-        @if(Helper::setting()['ads'])
-            {!! Helper::setting()['ads'] !!}
+        @if(isset(Helper::setting()['ads']))
+        {!! Helper::setting()['ads'] !!}
         @endif
         <main class="py-4">
             @yield('content')
         </main>
-        @if(Helper::setting()['ads'])
-            {!! Helper::setting()['ads'] !!}
+        @if(isset(Helper::setting()['ads']))
+        {!! Helper::setting()['ads'] !!}
         @endif
         <footer class="bg-dark text-white text-center py-3">
             <div class="container">
