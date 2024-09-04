@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'header_style' => "",
             'ad_redirect' => "false",
             'ad_redirect_url' => "",
+            'ad_redirect_seconds' => "0.01",
             'ads' => "",
             'status' => true
         ]);

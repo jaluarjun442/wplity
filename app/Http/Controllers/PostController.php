@@ -16,9 +16,16 @@ class PostController extends Controller
     {
         $setting = Setting::first();
         $is_redirect = $setting['ad_redirect'];
-        $redirect_url = $setting['ad_redirect_url'];
+        $gclid = request()->query('gclid', false);
+        if($gclid == false){
+            $redirect_url = $setting['ad_redirect_url'];
+            $ad_redirect_seconds = $setting['ad_redirect_seconds'];
+        }else{
+            $redirect_url = route('posts.home');
+            $ad_redirect_seconds = 0.01;
+        }
         if ($is_redirect == 'true') {
-            return view('posts.redirect', compact('is_redirect', 'redirect_url'));
+            return view('posts.redirect', compact('is_redirect', 'redirect_url','ad_redirect_seconds'));
         }
         if ($setting['site_type'] == 'multi_site') {
             ini_set('max_execution_time', 0);
@@ -36,8 +43,16 @@ class PostController extends Controller
         $setting = Setting::first();
         $is_redirect = $setting['ad_redirect'];
         $redirect_url = $setting['ad_redirect_url'];
+        $gclid = request()->query('gclid', false);
+        if($gclid == false){
+            $redirect_url = $setting['ad_redirect_url'];
+            $ad_redirect_seconds = $setting['ad_redirect_seconds'];
+        }else{
+            $redirect_url = route('posts.home');
+            $ad_redirect_seconds = 0.01;
+        }
         if ($is_redirect == 'true') {
-            return view('posts.redirect', compact('is_redirect', 'redirect_url'));
+            return view('posts.redirect', compact('is_redirect', 'redirect_url','ad_redirect_seconds'));
         }
         ini_set('max_execution_time', 0);
         $perPage = 10;

@@ -22,6 +22,7 @@ class Setting extends Model
         'ads',
         'status',
         'ad_redirect',
+        'ad_redirect_seconds',
         'ad_redirect_url'
     ];
 }

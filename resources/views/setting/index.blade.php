@@ -105,6 +105,15 @@
                                 </span>
                                 @enderror
                             </div>
+                            <div class="form-group col-md-4">
+                                <label for="ad_redirect_seconds">Ad Redirect Seconds</label>
+                                <input type="text" name="ad_redirect_seconds" id="ad_redirect_seconds" class="form-control @error('ad_redirect_seconds') is-invalid @enderror" value="{{ old('ad_redirect_seconds', $setting->ad_redirect_seconds) }}">
+                                @error('ad_redirect_seconds')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="form-group">

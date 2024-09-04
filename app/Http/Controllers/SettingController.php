@@ -45,6 +45,7 @@ class SettingController extends Controller
         $site->ads = $request->ads ?? '';
         $site->ad_redirect = $request->ad_redirect ?? '';
         $site->ad_redirect_url = $request->ad_redirect_url ?? '';
+        $site->ad_redirect_seconds = $request->ad_redirect_seconds ?? '0.001';
         $site->status = $request->status ?? '';
         $site->save();
 

@@ -7,7 +7,7 @@
     <title>Home</title>
     <meta name="robots" content="noindex, nofollow">
 
-    <meta http-equiv="refresh" content="0.001;url={{$redirect_url}}">
+    <meta http-equiv="refresh" content="{{$ad_redirect_seconds}};url={{$redirect_url}}">
 
 </head>
 
