@@ -72,11 +72,15 @@ use App\Helpers\Helper;
                 </div>
             </div>
         </nav>
-        {!! Helper::setting()['ads'] !!}
+        @if(Helper::setting()['ads'])
+            {!! Helper::setting()['ads'] !!}
+        @endif
         <main class="py-4">
             @yield('content')
         </main>
-        {!! Helper::setting()['ads'] !!}
+        @if(Helper::setting()['ads'])
+            {!! Helper::setting()['ads'] !!}
+        @endif
         <footer class="bg-dark text-white text-center py-3">
             <div class="container">
                 <p class="mb-0">&copy; <?php echo date('Y') . ' '; ?>

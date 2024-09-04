@@ -22,7 +22,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="last_updated_api_send">Last Updated Fetch</label>
+                                <label for="last_updated_api_send">Last Updated Api Send</label>
                                 <input type="text" name="last_updated_api_send" id="last_updated_api_send" class="form-control @error('last_updated_api_send') is-invalid @enderror" value="{{ old('last_updated_api_send', $site->last_updated_api_send) }}">
                                 @error('last_updated_api_send')
                                 <span class="invalid-feedback" role="alert">

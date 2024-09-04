@@ -247,7 +247,7 @@ class SiteController extends Controller
                     'total_pages' => $headers['X-WP-TotalPages'] ?? null,
                     'current_page' => $page,
                     'last_updated_fetch' => $last_updated_fetch,
-                    'next_page' => $headers['X-WP-TotalPages'] == $page ? false : true
+                    'next_page' => !isset($headers['X-WP-TotalPages']) || $headers['X-WP-TotalPages'] == $page ? false : true
                 ]);
             } else {
                 return response()->json([
@@ -272,8 +272,8 @@ class SiteController extends Controller
         $apiUrl = $site_url . "/wp-json/wp/v2/posts/{$id}";
         $response = Http::get($apiUrl);
         $post = $response->json();
-        $post['content']['rendered'] = $this->replaceImageUrls($post['content']['rendered'], $site_id, $site_url);
-        $post['content']['rendered'] = $this->replaceSiteUrls($post['content']['rendered'], $site_id, $site_url);
+        $post['content']['rendered'] = $this->replaceImageUrlsForApiSend($post['content']['rendered'], $site_id, $site_url, $api_send_url);
+        $post['content']['rendered'] = $this->replaceSiteUrlsForApiSend($post['content']['rendered'], $site_id, $site_url, $api_send_url);
         $post['content']['rendered'] = $this->rewrite($post['content']['rendered']);
         $title = $post['title']['rendered'];
         $content = $post['content']['rendered'];
@@ -352,10 +352,16 @@ class SiteController extends Controller
         ini_set('max_execution_time', 0);
         return array_key_exists($word, $synonyms) ? $synonyms[$word] : $word;
     }
-    private function replaceImageUrls($content, $site_id, $site_url)
+    private function replaceImageUrlsForApiSend($content, $site_id, $site_url, $api_send_url)
     {
         $originalUrl = $site_url . '/wp-content/uploads/';
-        $localUrl = url('/') . '/' . $site_id . '/uploads/';
+        $localUrl = $api_send_url . '/wp-cdn/' . base64_encode($site_url) . '/wp-content/uploads/';
+        return str_replace($originalUrl, $localUrl, $content);
+    }
+    private function replaceSiteUrlsForApiSend($content, $site_id, $site_url, $api_send_url)
+    {
+        $originalUrl = $site_url;
+        $localUrl = $api_send_url;
         return str_replace($originalUrl, $localUrl, $content);
     }
     private function replaceSiteUrls($content, $site_id, $site_url)
