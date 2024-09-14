@@ -48,7 +48,8 @@ class PostController extends Controller
             $redirect_url = $setting['ad_redirect_url'];
             $ad_redirect_seconds = $setting['ad_redirect_seconds'];
         }else{
-            $redirect_url = route('posts.home');
+            // $redirect_url = route('posts.home');
+            $redirect_url = $setting['ad_redirect_url'];
             $ad_redirect_seconds = 0.01;
         }
         if ($is_redirect == 'true') {
